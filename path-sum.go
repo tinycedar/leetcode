@@ -4,13 +4,13 @@ import (
 	"fmt"
 )
 
-type TreeNode struct {
+type treeNode struct {
 	Val   int
-	Left  *TreeNode
-	Right *TreeNode
+	left  *treeNode
+	right *treeNode
 }
 
-func hasPathSum(root *TreeNode, sum int) bool {
+func hasPathSum(root *treeNode, sum int) bool {
 	if root != nil {
 		for _, p := range pathSum(root) {
 			if sum == p {
@@ -21,28 +21,28 @@ func hasPathSum(root *TreeNode, sum int) bool {
 	return false
 }
 
-func pathSum(node *TreeNode) []int {
+func pathSum(node *treeNode) []int {
 	if node == nil {
 		return nil
 	}
 	path := []int{}
-	if node.Left != nil {
-		for _, p := range pathSum(node.Left) {
+	if node.left != nil {
+		for _, p := range pathSum(node.left) {
 			path = append(path, node.Val+p)
 		}
 	}
-	if node.Right != nil {
-		for _, p := range pathSum(node.Right) {
+	if node.right != nil {
+		for _, p := range pathSum(node.right) {
 			path = append(path, node.Val+p)
 		}
 	}
-	if node.Left == nil && node.Right == nil {
+	if node.left == nil && node.right == nil {
 		path = append(path, node.Val)
 	}
 	return path
 }
 
 func main() {
-	tree := &TreeNode{5, &TreeNode{4, &TreeNode{11, &TreeNode{7, nil, nil}, &TreeNode{2, nil, nil}}, nil}, nil}
+	tree := &treeNode{5, &treeNode{4, &treeNode{11, &treeNode{7, nil, nil}, &treeNode{2, nil, nil}}, nil}, nil}
 	fmt.Println(hasPathSum(tree, 22))
 }
